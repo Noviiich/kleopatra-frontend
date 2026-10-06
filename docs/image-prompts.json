@@ -1,0 +1,26 @@
+{
+  "mode": "built-in image_gen",
+  "note": "Editorial inspiration imagery, not photographs of actual salon work or premises.",
+  "prompts": [
+    {
+      "key": "hero",
+      "prompt": "Use case: photorealistic-natural. Asset type: full-height portrait hero photograph for a premium Russian hair salon editorial website. Primary request: high-end understated fashion beauty photograph of an adult woman with extraordinarily beautiful long rich dark brunette hair, softly sculpted large natural waves. Subject shown from mid upper-arm upward, in three-quarter profile, looking down slightly towards the left of frame with calm self-possession. Wearing simple black sleeveless top, natural subtle makeup, authentic skin texture. Hair is the hero, voluminous and lustrous, falling over her right shoulder and taking much of the right and bottom image. Composition vertical 4:5, head fully in frame with some negative space above, body centered slightly to the right; elegant silhouette, not commercial smiling stock photo. Warm olive taupe textured studio backdrop. Side lighting like late afternoon sunlight from upper left, dramatic soft shadows, warm analog film tones, quiet luxury editorial photography, medium format lens, extremely refined art direction. Colors warm chestnut, deep espresso, muted beige, olive. No text, no lettering, no collage, no border, no jewelry, no logos, no watermark. Save output file to local disk and return its local path if supported."
+    },
+    {
+      "key": "cut",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait image for a refined hair salon editorial website. Photograph adult woman from behind and slightly to the side, head and shoulders, perfect sleek dark chocolate blunt chin-length bob haircut. Ear slightly visible, no face visible. Black minimalist clothing, warm beige textured studio wall, soft natural window daylight, quiet luxury fashion magazine photography, real hair texture, analog film grain, warm muted tones, highly realistic, vertical portrait 4:5. No text, no logos, no watermark."
+    },
+    {
+      "key": "color",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait editorial photograph for premium hair salon website. Close-up from behind of an adult woman's long silky honey blonde hair with dimensional lived-in balayage, soft gentle large waves falling down the back. Face not visible. Sand linen top, soft cream plaster wall background, very beautiful hair texture and golden highlights, warm afternoon natural light, high end fashion magazine photograph with muted beige and chestnut color grading and subtle film grain. Cropping from top of head to mid-back, vertical portrait 4:5. No text, no logos, no watermark."
+    },
+    {
+      "key": "style",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait editorial photograph for premium hair salon. Adult woman in soft side profile looking away, extremely beautiful long chestnut brunette wavy hair cascading over shoulder in big airy natural waves, face partly obscured by hair. Wearing a simple black top, shot from crown to chest. Studio beige taupe backdrop, warm afternoon window light, warm toned analog editorial photography, subtle grain and real hair texture, natural rather than excessively glossy, sophisticated and understated beauty magazine direction. Vertical image 4:5, no text, no watermark, no logo."
+    },
+    {
+      "key": "salon",
+      "prompt": "Use case: photorealistic-natural. Asset type: landscape interior mood photograph for premium hair salon website. A beautifully composed architectural photo of a single elegant hairdresser station: large oval bronze edged mirror on a warm textured beige plaster wall, a caramel leather salon chair with slim black metal base slightly off center, floating walnut console, small green branches in earthy ceramic vase, sheer linen curtain at left with sunlight entering. Warm walnut, muted olive and taupe palette. Tasteful lived-in European salon, soft afternoon daylight, analogue magazine interior photography, real materials, quiet intimate welcoming atmosphere. Landscape 4:3 image. No people, no text, no logos, no watermark."
+    }
+  ]
+}
