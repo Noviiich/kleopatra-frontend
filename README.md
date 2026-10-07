@@ -58,32 +58,23 @@ tests/site.spec.ts          Сквозные проверки пользоват
 
 ## Публикация
 
-### GitHub Pages
+Workflow находится в `.github/workflows/deploy.yml`. Он запускается на push в основную ветку, собирает сайт и синхронизирует `dist/` на сервер по SSH. Pull request проходят проверки, но не публикуются. Workflow можно запустить вручную через **Actions → Deploy to server → Run workflow**.
 
-Workflow находится в `.github/workflows/pages.yml`.
+### GitHub Secrets
 
-1. Загрузите проект вместе с `package-lock.json` и каталогом `.github` в репозиторий GitHub.
-2. В **Settings → Pages → Build and deployment → Source** выберите **GitHub Actions**.
-3. Отправьте изменения в основную ветку репозитория либо запустите **Actions → GitHub Pages → Run workflow**, выбрав основную ветку.
-4. После успешной публикации ссылка на сайт появится в окружении **github-pages** и в **Settings → Pages**.
+Добавьте секреты репозитория в **Settings → Secrets and variables → Actions → New repository secret**:
 
-Основная ветка определяется автоматически из настроек репозитория: подойдут `main`, `master` и другое имя. На push в эту ветку workflow устанавливает зависимости через `npm ci`, проверяет форматирование, собирает проект с проверкой TypeScript, запускает браузерные тесты production-сборки и публикует `dist/`. Pull request проходят те же проверки без публикации; для них используется тестовый префикс `/pages-preview/`.
+| Имя | Значение |
+| --- | --- |
+| `SSH_HOST` | IP-адрес или имя сервера |
+| `SSH_PORT` | SSH-порт, обычно `22`; если секрет не задан, используется `22` |
+| `SSH_USER` | Пользователь SSH, у которого есть доступ к каталогу сайта |
+| `SSH_PRIVATE_KEY` | Приватный SSH-ключ этого пользователя целиком, включая строки `BEGIN` и `END` |
+| `SSH_KNOWN_HOSTS` | Строка(и) ключа сервера для `known_hosts`, с портом, если он нестандартный |
+| `SSH_TARGET_DIR` | Абсолютный путь к корню сайта, например `/var/www/kleopatra` |
 
-Путь сайта берётся из `actions/configure-pages`: поддерживаются адрес проекта `https://username.github.io/repository/`, корневой `https://username.github.io/` и собственный домен, настроенный в Pages. Изображения, шрифты, JavaScript, preload и favicon учитывают этот путь. Отдельные секреты, персональный токен и ветка `gh-pages` не нужны.
+Публичную часть ключа из `SSH_PRIVATE_KEY` добавьте на сервер в `~/.ssh/authorized_keys` пользователя деплоя. Этот пользователь должен иметь право записи в `SSH_TARGET_DIR`; на сервере также должен быть установлен `rsync`. Веб-сервер (например, Nginx или Apache) настройте на раздачу файлов из этой директории.
 
-Локальная проверка варианта с именем репозитория в URL:
+`SSH_KNOWN_HOSTS` можно получить командой `ssh-keyscan -p 22 -H example.com` (подставьте свой порт и адрес), затем сохранить её вывод как секрет. Перед использованием сверьте отпечаток ключа сервера с администратором или панелью хостинга.
 
-```bash
-VITE_BASE_PATH=/kleopatra-frontend/ npm run build
-VITE_BASE_PATH=/kleopatra-frontend/ npm run preview
-# Откройте http://localhost:4173/kleopatra-frontend/
-
-# Тесты собранного сайта; preview-сервер тестовый раннер запустит сам.
-CI=true VITE_BASE_PATH=/kleopatra-frontend/ PLAYWRIGHT_PREVIEW=true PLAYWRIGHT_PORT=4175 npm run test:e2e
-```
-
-При изменении домена достаточно снова запустить workflow. При использовании собственного домена подтвердите DNS-настройки в GitHub Pages. [Документация GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
-
-### Другой статический хостинг
-
-Содержимое `dist/` можно разместить на любом статическом хостинге. Без `VITE_BASE_PATH` сайт собирается для корня `/`. До публикации задайте абсолютный URL `og:image`, `canonical` и адрес сайта после выбора домена. В проекте нет секретов, внешних шрифтов, cookie-трекеров и платных API.
+Деплой удаляет из `SSH_TARGET_DIR` файлы, которых больше нет в новой сборке. Укажите отдельный каталог сайта, а не общую директорию с другими данными. Сайт собирается для корня домена; если он должен открываться в подкаталоге, сначала задайте нужный `VITE_BASE_PATH` в workflow.
